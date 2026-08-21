@@ -1,55 +1,59 @@
-<!DOCTYPE html>
+html_code = """<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campanha Sindicato de Todos | Por um Estatuto Único e Democrático</title>
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS para design ágil e responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
+    <!-- FontAwesome para ícones modernos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .active-tab {
-            border-bottom: 4px solid #34d399; 
-            color: #34d399 !important; 
-            font-weight: 700;
-            background-color: rgba(255, 255, 255, 0.05); 
+        body {
+            font-family: 'Inter', sans-serif;
         }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .active-tab {
+            border-bottom: 4px solid #34d399; /* Verde luminoso (emerald-400 do Tailwind) */
+            color: #34d399 !important; /* Força a cor clara por cima do cinza */
+            font-weight: 700;
+            background-color: rgba(255, 255, 255, 0.05); /* Leve realce no fundo da aba */
+        }
+        /* Custom scrollbar para visual limpo */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
 
-    <!-- CABEÇALHO -->
+    <!-- CABEÇALHO / HEADER -->
     <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
             
-            <!-- IDENTIDADE VISUAL -->
+            <!-- INSERÇÃO PROFISSIONAL DO LOGO E NOME DO COLETIVO -->
             <div class="flex items-center space-x-4 mb-4 md:mb-0">
-                <div class="flex-shrink-0 w-14 h-14 rounded-full overflow-hidden border-2 border-emerald-500 shadow-md bg-black">
-                    <img src="LOGO APRIMORADO TRANSPARÊNCIA.jpg" alt="Logo Unidade e Luta" class="w-full h-full object-cover">
-                </div>
-                <div class="flex flex-col justify-center">
-                    <span class="text-[10px] md:text-xs text-emerald-400 font-bold tracking-wider uppercase mb-0.5">
-                        Coletivo de Oposição Sindical Unidade e Luta
-                    </span>
-                    <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white leading-none mb-1">
-                        SINDICATO DE TODOS
-                    </h1>
-                    <p class="text-[11px] md:text-xs text-slate-300 font-medium tracking-wide">
-                        Campanha pela Reforma Estatutária do Sindicato União
-                    </p>
+                <img src="logo.png" alt="Logo Coletivo Unidade e Luta" class="w-14 h-14 rounded-full border-2 border-emerald-500 shadow-md bg-black object-cover p-0.5">
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">Campanha pela Reforma Estatutária do Sindicato União</h1>
+                    <p class="text-xs text-emerald-400 font-medium tracking-wider uppercase">Coletivo de Oposição Sindical Unidade e Luta</p>
                 </div>
             </div>
 
-            <!-- Menu de Apoio -->
+            <!-- Menu de Apoio Rápido -->
             <div class="flex items-center space-x-4">
-                <span class="text-sm bg-slate-800 text-emerald-300 font-semibold px-3 py-1.5 rounded-full border border-emerald-500/20">
+                <span class="text-sm bg-slate-800 text-emerald-300 font-semibold px-3 py-1.5 rounded-full border border-emerald-500/20" id="header-counter-badge">
                     <i class="fa-solid fa-pen-nib mr-1.5"></i> <span id="badge-count">142</span> assinaturas
                 </span>
                 <button onclick="switchTab('petition')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-4 py-2 rounded-lg transition duration-200 shadow-sm flex items-center">
@@ -58,10 +62,10 @@
             </div>
         </div>
         
-        <!-- BARRA DE NAVEGAÇÃO -->
+        <!-- BARRA DE NAVEGAÇÃO / ABAS -->
         <div class="bg-slate-800 border-t border-slate-700">
             <div class="max-w-7xl mx-auto px-4">
-                <nav class="flex overflow-x-auto space-x-8 scrollbar-none">
+                <nav class="flex overflow-x-auto space-x-8 scrollbar-none" aria-label="Tabs">
                     <button onclick="switchTab('manifesto')" id="tab-manifesto" class="py-3.5 px-1 border-b-4 border-transparent text-sm font-medium text-slate-300 hover:text-white transition-all active-tab flex items-center whitespace-nowrap">
                         <i class="fa-solid fa-bullhorn mr-2"></i> Manifesto
                     </button>
@@ -69,7 +73,7 @@
                         <i class="fa-solid fa-bolt mr-2"></i> Drops da Verdade
                     </button>
                     <button onclick="switchTab('comparison')" id="tab-comparison" class="py-3.5 px-1 border-b-4 border-transparent text-sm font-medium text-slate-300 hover:text-white transition-all flex items-center whitespace-nowrap">
-                        <i class="fa-solid fa-table-list mr-2"></i> Comparativo de Bases
+                        <i class="fa-solid fa-table-list mr-2"></i> Comparativo Estatutos
                     </button>
                     <button onclick="switchTab('petition')" id="tab-petition" class="py-3.5 px-1 border-b-4 border-transparent text-sm font-medium text-slate-300 hover:text-white transition-all flex items-center whitespace-nowrap">
                         <i class="fa-solid fa-signature mr-2"></i> Abaixo-Assinado
@@ -81,79 +85,817 @@
 
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="flex-grow max-w-7xl mx-auto px-4 py-8 w-full">
+
+<!-- ================= ABA 1: MANIFESTO ================= -->
         <section id="content-manifesto" class="tab-content space-y-8">
-            <!-- Destaque do Manifesto -->
             <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
+                <!-- (Conteúdo do cabeçalho roxo mantido igual) -->
                 <div class="max-w-2xl space-y-4">
                     <span class="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">A Hora da Mudança Chegou</span>
-                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Menos de 2% da nossa categoria está sindicalizada.</h2>
+                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Menos de 2% da nossa categoria está sindicalizada. Descubra o porquê.</h2>
                     <p class="text-slate-300 text-lg leading-relaxed">
-                        Um sindicato esvaziado não tem força. As regras atuais do Sindicato União são excludentes, burocráticas e fecham as portas para a base.
+                        Um sindicato esvaziado não tem força de negociação perante o Tribunal de Justiça. Mas os colegas não deixam de se sindicalizar por falta de interesse, e sim porque as regras atuais do Sindicato União são excludentes, burocráticas e fecham as portas para a base.
                     </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <div class="flex items-center text-sm text-slate-300"><i class="fa-solid fa-check-circle text-emerald-400 mr-2"></i> Documento Único</div>
+                        <div class="flex items-center text-sm text-slate-300"><i class="fa-solid fa-check-circle text-emerald-400 mr-2"></i> Fim das Inelegibilidades Abusivas</div>
+                        <div class="flex items-center text-sm text-slate-300"><i class="fa-solid fa-check-circle text-emerald-400 mr-2"></i> Comissão Eleitoral Democrática</div>
+                    </p>
+<div class="flex items-center text-sm text-slate-300"><i class="fa-solid fa-check-circle text-emerald-400 mr-2"></i> Voto Eletrônico</div>
+                        <div class="flex items-center text-sm text-slate-300"><i class="fa-solid fa-check-circle text-emerald-400 mr-2"></i> Fim das Honrarias Anacrônicas</div>
+                        <div class="flex items-center text-sm text-slate-300"><i class="fa-solid fa-check-circle text-emerald-400 mr-2"></i> Inclusão e Pluralidade</div>
+
+                    </div>
                 </div>
-                <!-- Mini Assinaturas -->
                 <div class="bg-slate-800/80 p-6 rounded-xl border border-slate-700 w-full md:w-80 shadow-inner space-y-4">
                     <h3 class="font-bold text-center text-emerald-400">Rumo aos 5% da Base!</h3>
-                    <button onclick="switchTab('petition')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg text-sm">Assinar o Abaixo-Assinado</button>
+                    <p class="text-xs text-slate-300 text-center">Precisamos de 500 assinaturas para convocar legalmente a Assembleia Geral Extraordinária de Reforma Estatutária.</p>
+                    <div class="relative pt-1">
+                        <div class="flex mb-2 items-center justify-between">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-emerald-400 bg-emerald-200/10">Progresso</span>
+                            <span class="text-xs font-bold inline-block text-emerald-400" id="progress-percent">28.4%</span>
+                        </div>
+                        <div class="overflow-hidden h-2.5 text-xs flex rounded bg-slate-700">
+                            <div style="width: 28.4%" id="progress-bar-fill" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500 transition-all duration-500"></div>
+                        </div>
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                            <span><span id="current-signs">142</span> assinaturas</span>
+                            <span>Meta: 500</span>
+                        </div>
+                    </div>
+                    <button onclick="switchTab('petition')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg text-sm transition shadow-sm">
+                        Assinar o Abaixo-Assinado
+                    </button>
                 </div>
             </div>
 
-            <!-- EIXOS DA REFORMA -->
+            <!-- EIXOS DA REFORMA (6 Cards) -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200/80 space-y-3">
                     <div class="text-emerald-600 text-3xl"><i class="fa-solid fa-file-signature"></i></div>
                     <h3 class="font-bold text-lg text-slate-900">Estatuto Único Já</h3>
-                    <p class="text-sm text-slate-600">Propomos um só documento, transparente e acessível a todos, eliminando a dispersão de normas burocráticas.</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Hoje as regras estão espalhadas entre Estatuto, RIA e RIPE, escondendo exigências burocráticas da categoria. Propomos um só documento, transparente e acessível a todos.
+                    </p>
                 </div>
+                <!-- Card 2 -->
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200/80 space-y-3">
                     <div class="text-emerald-600 text-3xl"><i class="fa-solid fa-user-lock"></i></div>
                     <h3 class="font-bold text-lg text-slate-900">Fim do Filtro Excludente</h3>
-                    <p class="text-sm text-slate-600">Lideranças não podem ser impedidas por processos administrativos ou questões financeiras decorrentes da defasagem salarial.</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Lideranças combativas não podem ser impedidas de concorrer por causa de Processo Administrativo (PAD) ou negativação decorrente da perda salarial histórica de 25%.
+                    </p>
                 </div>
+                <!-- Card 3 -->
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200/80 space-y-3">
                     <div class="text-emerald-600 text-3xl"><i class="fa-solid fa-users-gear"></i></div>
                     <h3 class="font-bold text-lg text-slate-900">Comissão Eleitoral na AG</h3>
-                    <p class="text-sm text-slate-600">Comissões eleitas de forma democrática e paritária em Assembleia Geral, não indicadas pela diretoria.</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Chega de comissão indicada pela própria diretoria governista. Exigimos que ela seja eleita de forma democrática e paritária em Assembleia Geral convocada pela base.
+                    </p>
                 </div>
+                <!-- Card 4 -->
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200/80 space-y-3">
                     <div class="text-emerald-600 text-3xl"><i class="fa-solid fa-check-to-slot"></i></div>
                     <h3 class="font-bold text-lg text-slate-900">Voto Eletrônico e Acesso</h3>
-                    <p class="text-sm text-slate-600">Garantia do voto eletrônico seguro e auditável, rompendo barreiras geográficas.</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        O Judiciário é digital; nosso sindicato também deve ser. Garantia estatutária do voto eletrônico seguro e auditável, permitindo a participação ativa de colegas de todas as comarcas.
+                    </p>
                 </div>
+                <!-- Card 5 -->
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200/80 space-y-3">
                     <div class="text-emerald-600 text-3xl"><i class="fa-solid fa-chess-king"></i></div>
-                    <h3 class="font-bold text-lg text-slate-900">Fim de Títulos Elitistas</h3>
-                    <p class="text-sm text-slate-600">Extinção de títulos anacrônicos e formalidades que não dialogam com a realidade dos servidores.</p>
+                    <h3 class="font-bold text-lg text-slate-900">Fim dos Títulos Maçônicos</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Sindicato é instrumento de mobilização, não uma corte. Exigimos a limpeza do estatuto, extinguindo honrarias anacrônicas (como "grão-mestre") e formalidades inúteis.
+                    </p>
                 </div>
+                <!-- Card 6 -->
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200/80 space-y-3">
                     <div class="text-emerald-600 text-3xl"><i class="fa-solid fa-hands-holding-circle"></i></div>
                     <h3 class="font-bold text-lg text-slate-900">Sindicato Inclusivo e Plural</h3>
-                    <p class="text-sm text-slate-600">Previsão de secretarias de pautas afirmativas para o combate permanente ao machismo, racismo e lgbtfobia.</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Nossa luta vai além do salário. O novo estatuto deve prever secretarias de pautas afirmativas para o combate permanente ao machismo, ao racismo e à lgbtfobia.
+                    </p>
+                </div>
+            </div>
+
+            <!-- VÍDEOS DA CAMPANHA (Agora embutidos dentro da Aba Manifesto) -->
+            <div class="py-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center">Conteúdo da Campanha</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Video 1 (Inicia aos 11s) -->
+                    <div class="aspect-video">
+                        <iframe class="w-full h-full rounded-xl shadow-lg border border-slate-200" 
+                                src="https://www.youtube.com/embed/RlkZpc-G7Ac?start=11" 
+                                title="Reformulação do Estatuto do Sindicato Estadual" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <!-- Video 2 (Inicia aos 20s) -->
+                    <div class="aspect-video">
+                        <iframe class="w-full h-full rounded-xl shadow-lg border border-slate-200" 
+                                src="https://www.youtube.com/embed/qCIvJ-IMYww?start=20" 
+                                title="Democracia e sindicalismo no TJSP" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= ABA 2: DROPS DA VERDADE ================= -->
+        <section id="content-drops" class="tab-content hidden space-y-6">
+            <div class="text-center max-w-xl mx-auto mb-8">
+                <h2 class="text-2xl font-bold text-slate-900">Drops da Verdade: Desmistificando o Estatuto</h2>
+                <p class="text-sm text-slate-600">Entenda de forma rápida e dinâmica o que as regras atuais ocultam e qual é a nossa proposta de mudança para libertar o sindicato.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-4">
+                <!-- DROP 1 -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <button onclick="toggleAccordion('drop1')" class="w-full px-6 py-4 flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition duration-150">
+                        <div class="flex items-center space-x-3 text-left">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-md uppercase">O Segredo do RIA</span>
+                            <span class="font-bold text-slate-800 text-sm md:text-base">10 Anos de "Nada Consta" de PAD do TJSP?</span>
+                        </div>
+                        <i id="icon-drop1" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="body-drop1" class="hidden px-6 py-5 border-t border-slate-100 bg-white space-y-3 text-sm text-slate-600">
+                        <p><strong>A Distorção Atual:</strong> O RIA (Regimento Interno Administrativo) exige do candidato certidão de "Nada Consta" em processos administrativos disciplinares ou sindicâncias nos últimos 10 anos perante o TJSP.</p>
+                        <p><strong>Por que isso é perigoso?</strong> Em um tribunal marcado por assédio moral e perseguições políticas, o PAD é frequentemente utilizado como instrumento de retaliação para calar e suspender servidores combativos que denunciam desvios ou exigem direitos funcionais.</p>
+                        <p class="bg-emerald-50 text-emerald-900 p-3 rounded-lg border-l-4 border-emerald-500"><strong>Nossa Proposta:</strong> Retirar qualquer barreira associada a processos administrativos em andamento. Somente condenação criminal judicial transitada em julgado por crimes dolosos/patrimoniais deve afastar elegibilidades políticas sindicais.</p>
+                    </div>
+                </div>
+
+                <!-- DROP 2 -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <button onclick="toggleAccordion('drop2')" class="w-full px-6 py-4 flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition duration-150">
+                        <div class="flex items-center space-x-3 text-left">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-md uppercase">Barreira Financeira</span>
+                            <span class="font-bold text-slate-800 text-sm md:text-base">Exigência de Serasa/SPC de 10 anos para Diretoria</span>
+                        </div>
+                        <i id="icon-drop2" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="body-drop2" class="hidden px-6 py-5 border-t border-slate-100 bg-white space-y-3 text-sm text-slate-600">
+                        <p><strong>A Distorção Atual:</strong> O RIA impede a candidatura de qualquer colega à diretoria que possua negativações cadastrais, protestos de títulos ou restrições de crédito (SPC/Serasa) registradas nos últimos 10 anos.</p>
+                        <p><strong>Por que isso é um absurdo?</strong> Uma das principais razões para o endividamento e a perda de crédito do servidor paulista é justamente a **defasagem salarial crônica, atualmente em cerca de 25%**, contra a qual o próprio Sindicato União não conseguiu fazer frente. Punir o colega endividado impedindo-o de atuar na defesa de seus próprios vencimentos é um contra-senso absoluto.</p>
+                        <p class="bg-emerald-50 text-emerald-900 p-3 rounded-lg border-l-4 border-emerald-500"><strong>Nossa Proposta:</strong> Extinguir imediatamente a exigência de certidões negativas de protesto ou de cadastros de proteção ao crédito. Nenhum outro sindicato sério do país adota essa punição que ataca os trabalhadores prejudicados pela inflação.</p>
+                    </div>
+                </div>
+
+                <!-- DROP 3 -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <button onclick="toggleAccordion('drop3')" class="w-full px-6 py-4 flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition duration-150">
+                        <div class="flex items-center space-x-3 text-left">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded-md uppercase">Voto da Base</span>
+                            <span class="font-bold text-slate-800 text-sm md:text-base">Delegados Sindicais: Indicação ou Eleição?</span>
+                        </div>
+                        <i id="icon-drop3" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="body-drop3" class="hidden px-6 py-5 border-t border-slate-100 bg-white space-y-3 text-sm text-slate-600">
+                        <p><strong>A Situação Atual:</strong> O RIA e a diretoria tratam a escolha de representantes de comarca como uma concessão que pode ser regulada ou indicada de forma vertical, retirando o protagonismo político dos locais de trabalho.</p>
+                        <p><strong>Qual é a nossa meta?</strong> Um sindicato forte se constrói de baixo para cima. A representação local (delegados sindicais) não pode ser controlada ou homologada unilateralmente pela cúpula em São Paulo.</p>
+                        <p class="bg-emerald-50 text-emerald-900 p-3 rounded-lg border-l-4 border-emerald-500"><strong>Nossa Proposta:</strong> Garantia estatutária pétrea de que todos os Delegados e Representantes de Base sejam eleitos em pleito direto por maioria simples de seus locais de trabalho, na proporção do número de servidores.</p>
+                    </div>
+                </div>
+
+                <!-- DROP 4 -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <button onclick="toggleAccordion('drop4')" class="w-full px-6 py-4 flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition duration-150">
+                        <div class="flex items-center space-x-3 text-left">
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-md uppercase">Unidade Democrática</span>
+                            <span class="font-bold text-slate-800 text-sm md:text-base">Mudar o Estatuto é a Condição para Unir a Categoria</span>
+                        </div>
+                        <i id="icon-drop4" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="body-drop4" class="hidden px-6 py-5 border-t border-slate-100 bg-white space-y-3 text-sm text-slate-600">
+                        <p><strong>A Realidade do Nosso TJSP:</strong> Com apenas 2% de filiação, o sindicato carece de representatividade real. Isso afasta os novos servidores e enfraquece a nossa categoria na Assembleia Legislativa (ALESP).</p>
+                        <p><strong>Como o Novo Estatuto Único Resolve Isso?</strong> Reduzindo a carência para candidatura de abusivos 3 anos para **6 meses** (como é no SINTRAJUD e no SITRAEMG), facilitando a sindicalização, unificando os normativos e dando transparência financeira e eleitoral completa. A base se sentirá representada e voltará a se filiar.</p>
+                        <p class="bg-emerald-50 text-emerald-900 p-3 rounded-lg border-l-4 border-emerald-500"><strong>A Solução:</strong> Assinar o Abaixo-Assinado virtual para demonstrar a união inabalável da categoria pela convocação da AGE soberana de Reforma.</p>
+                    </div>
                 </div>
             </div>
         </section>
-        
-        <!-- (Outras seções ocultas seriam inseridas aqui) -->
+
+        <!-- ================= ABA 3: COMPARATIVO ESTATUTOS ================= -->
+        <section id="content-comparison" class="tab-content hidden space-y-6">
+            <div class="text-center max-w-xl mx-auto mb-6">
+                <h2 class="text-2xl font-bold text-slate-900">Painel Comparativo Completo (23 Sindicatos)</h2>
+                <p class="text-sm text-slate-600">Filtre e analise todas as bases. Veja como o Sindicato União (SP) está isolado no cenário nacional com regras excludentes.</p>
+            </div>
+
+            <!-- INTERFACE DE FILTROS AVANÇADOS -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <!-- Busca Textual -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Pesquisar</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                        </span>
+                        <input type="text" id="search-input" onkeyup="filterData()" placeholder="Buscar sindicato, regra, comissão..." class="w-full pl-9 pr-3 py-1.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs">
+                    </div>
+                </div>
+                <!-- Filtro por Âmbito -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Âmbito</label>
+                    <select id="filter-scope" onchange="filterData()" class="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs bg-white text-slate-700">
+                        <option value="Todos">Todos os Sindicatos</option>
+                        <option value="Federal">Apenas Federais</option>
+                        <option value="Estadual">Apenas Estaduais</option>
+                    </select>
+                </div>
+                <!-- Filtro por Duração de Mandato -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Duração do Mandato</label>
+                    <select id="filter-mandate" onchange="filterData()" class="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs bg-white text-slate-700">
+                        <option value="Todos">Todos os Mandatos</option>
+                        <option value="3">3 anos (Padrão Democrático)</option>
+                        <option value="4">4 anos</option>
+                        <option value="5">5 anos (Exceções)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- CONTÊINER DA TABELA COM CABEÇALHO CONGELADO -->
+            <div class="overflow-x-auto max-h-[600px] overflow-y-auto bg-white rounded-xl shadow-sm border border-slate-200">
+                <table class="w-full text-left border-collapse text-xs" id="comparison-table">
+                    <!-- CABEÇALHO CONGELADO (sticky top-0 bg-slate-900) -->
+                    <thead class="sticky top-0 z-10 bg-slate-900 text-white text-center font-bold shadow-sm">
+                        <tr>
+                            <th class="p-3 text-left bg-slate-900 min-w-[150px]">Sindicato</th>
+                            <th class="p-3 bg-slate-900">Esfera</th>
+                            <th class="p-3 bg-slate-900">Mandato</th>
+                            <th class="p-3 bg-slate-900">Reeleição</th>
+                            <th class="p-3 bg-slate-900 text-left min-w-[200px]">Carência / Elegibilidade (PAD e SPC?)</th>
+                            <th class="p-3 bg-slate-900 text-left min-w-[180px]">Comissão Eleitoral</th>
+                            <th class="p-3 bg-slate-900 text-left min-w-[150px]">Votação e Voto</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 font-medium" id="table-body">
+                        <!-- Gerado Dinamicamente pelo Javascript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="flex justify-between items-center text-[10px] text-slate-400 italic px-2">
+                <span>* Dados consolidados com base nos estatutos civis vigentes e regimentos de ética de 2026.</span>
+                <span class="font-semibold text-slate-500" id="table-row-count">Exibindo 23 de 23 sindicatos</span>
+            </div>
+        </section>
+
+        <!-- ================= ABA 4: ABAIXO-ASSINADO ================= -->
+        <section id="content-petition" class="tab-content hidden max-w-xl mx-auto space-y-8">
+            <div class="text-center space-y-2">
+                <h2 class="text-2xl font-bold text-slate-900">Abaixo-Assinado pela Unificação e Redemocratização</h2>
+                <p class="text-sm text-slate-600">Preencha o formulário para somar a sua voz pela consolidação do Estatuto Único do Sindicato União. Aberto a todos os servidores do Judiciário paulista.</p>
+            </div>
+
+            <!-- FORMULÁRIO -->
+            <form id="petition-form" onsubmit="submitSign(event)" class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1" for="user-name">Nome Completo</label>
+                    <input type="text" id="user-name" required placeholder="Digite seu nome completo" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1" for="user-id">Matrícula Funcional</label>
+                        <input type="text" id="user-id" required placeholder="Ex: 123.456-7" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1" for="user-location">Comarca / Fórum</label>
+                        <input type="text" id="user-location" required placeholder="Ex: Campinas, Lins, Capital" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1" for="user-email">E-mail Pessoal</label>
+                    <input type="email" id="user-email" required placeholder="Ex: colega@gmail.com" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+
+                <!-- TERMOS / CONSENTIMENTO -->
+                <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-2">
+                    <div class="flex items-start space-x-2.5">
+                        <input type="checkbox" id="user-agree" required class="mt-1 accent-emerald-600">
+                        <label for="user-agree" class="text-xs text-slate-500 leading-normal">
+                            Declaro apoiar a unificação das normas do Sindicato União em um único Estatuto, extinguindo o RIA e o RIPE, reduzindo prazos de carência e liberando as candidaturas de filtros abusivos.
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg text-sm transition shadow shadow-emerald-600/20 flex justify-center items-center">
+                    <i class="fa-solid fa-pen-nib mr-2"></i> Assinar Petição Eletrônica
+                </button>
+            </form>
+
+            <!-- ÚLTIMOS ASSINANTES -->
+            <div class="space-y-3">
+                <h3 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-users text-emerald-600 mr-2"></i> Últimos Apoiadores</h3>
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm max-h-48 overflow-y-auto divide-y divide-slate-100" id="signers-list">
+                    <!-- Gerado dinamicamente no JS -->
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- VÍDEOS -->
-    <section class="max-w-7xl mx-auto px-4 py-12">
-        <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center">Conteúdo da Campanha</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="aspect-video">
-                <iframe class="w-full h-full rounded-xl shadow-lg border border-slate-200" src="https://www.youtube.com/embed/RlkZpc-G7Ac" title="Reformulação do Estatuto" frameborder="0" allowfullscreen></iframe>
+    <!-- FOOTER COM LOGO DO COLETIVO -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <div class="flex items-center space-x-4">
+                <img src="logo.png" alt="Logo Unidade e Luta" class="w-12 h-12 rounded-full border border-slate-700 shadow-sm bg-black object-cover">
+                <div>
+                    <p class="font-bold text-slate-200 text-sm">Coletivo de Oposição Sindical Unidade e Luta</p>
+                    <p>© 2026. Campanha pela Reforma Estatutária. Uso exclusivo de campanha.</p>
+                </div>
             </div>
-            <div class="aspect-video">
-                <iframe class="w-full h-full rounded-xl shadow-lg border border-slate-200" src="https://www.youtube.com/embed/qCIvJ-IMYww" title="Democracia e sindicalismo" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-xs">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p>© 2026 Coletivo de Oposição Sindical Unidade e Luta. Protótipo para uso exclusivo de campanha.</p>
+            <p class="flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-emerald-400"></i> Protegido nos termos da LGPD e regras de confidencialidade.</p>
         </div>
     </footer>
+
+    <!-- MODAL DE SUCESSO -->
+    <div id="success-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex justify-center items-center z-50 p-4">
+        <div class="bg-white p-6 md:p-8 rounded-2xl max-w-sm w-full shadow-2xl border border-slate-200 text-center space-y-4">
+            <div class="bg-emerald-100 text-emerald-700 w-16 h-16 rounded-full flex justify-center items-center text-3xl mx-auto">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Assinatura Confirmada!</h3>
+            <p class="text-sm text-slate-500 leading-normal">
+                Muito obrigado! Sua assinatura foi computada com sucesso no nosso sistema local e somará força na nossa campanha para libertar o sindicato.
+            </p>
+            <button onclick="closeModal()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2 rounded-lg text-sm transition">
+                Fechar Janela
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPT JAVASCRIPT DINÂMICO -->
+    <script>
+        // Banco de Dados Dinâmico dos 23 Sindicatos Integrados no JS
+        const sindicatosData = [
+  {
+    "sindicato": "SINTRAJUD",
+    "ambito": "Federal - SP",
+    "mandato": 3,
+    "reeleicao": "Permitida uma única reeleição consecutiva",
+    "candidatura": "2 meses",
+    "voto": "2 meses",
+    "publico": "Não exigida",
+    "comissao": "Mínimo 3 filiados eleitos + 1 por chapa (composição ímpar)",
+    "quorum": "Sem quórum mínimo / Maioria simples dos presentes",
+    "meio": "Eletrônico / Digital, híbrido e auditável"
+  },
+  {
+    "sindicato": "SINDJUFE",
+    "ambito": "Federal - MS",
+    "mandato": 3,
+    "reeleicao": "Permitida para mais de um período consecutivo",
+    "candidatura": "6 meses (180 dias)",
+    "voto": "90 dias",
+    "publico": "Não exigida",
+    "comissao": "3 membros titulares e suplentes, eleitos em AGE",
+    "quorum": "Quórum regulado em regimento por maioria",
+    "meio": "Eletrônico via internet, aplicativos ou papel"
+  },
+  {
+    "sindicato": "SINTRAJUFE",
+    "ambito": "Federal - RS",
+    "mandato": 3,
+    "reeleicao": "Permitida para o sistema diretivo",
+    "candidatura": "180 dias",
+    "voto": "90 dias",
+    "publico": "Não exigida",
+    "comissao": "Representantes de Secretaria Geral, Formação e Jurídico",
+    "quorum": "Mínimo de 50% de participação para validade",
+    "meio": "Eletrônico via internet / Votação virtual"
+  },
+  {
+    "sindicato": "SINDQUINZE",
+    "ambito": "Federal - TRT-15",
+    "mandato": 3,
+    "reeleicao": "Permitida reeleição",
+    "candidatura": "6 meses",
+    "voto": "Quites",
+    "publico": "Não exigida",
+    "comissao": "Comissão Eleitoral eleita em Assembleia Geral",
+    "quorum": "Turno único com qualquer quórum",
+    "meio": "Plataforma digital ou urnas físicas de lona"
+  },
+  {
+    "sindicato": "SISEJUFE",
+    "ambito": "Federal - RJ",
+    "mandato": 3,
+    "reeleicao": "Permitida reeleição",
+    "candidatura": "6 meses",
+    "voto": "Quites",
+    "publico": "Não exigida",
+    "comissao": "Eleita em Assembleia Geral da categoria",
+    "quorum": "Maioria simples / Regimento",
+    "meio": "Presencial, virtual ou híbrida via internet"
+  },
+  {
+    "sindicato": "SITRAEMG",
+    "ambito": "Federal - MG",
+    "mandato": 3,
+    "reeleicao": "Permitida apenas uma recondução na chapa",
+    "candidatura": "6 meses",
+    "voto": "Quites",
+    "publico": "Não exigida",
+    "comissao": "Mínimo de 3 sindicalizados + representantes de chapa",
+    "quorum": "Sem quórum geral / Maioria simples",
+    "meio": "Sistema eletrônico via internet ou cédula física"
+  },
+  {
+    "sindicato": "SINDJUS",
+    "ambito": "Estadual - RS",
+    "mandato": 3,
+    "reeleicao": "Permitida reeleição",
+    "candidatura": "6 meses (180 dias)",
+    "voto": "90 dias",
+    "publico": "Não exigida",
+    "comissao": "3 a 5 membros titulares e 1 a 2 suplentes",
+    "quorum": "Mínimo de 50% de participação (40% se 2º turno)",
+    "meio": "Voto eletrônico na internet (Art. 75-A) / Aclamação se chapa única"
+  },
+  {
+    "sindicato": "SINDJUS",
+    "ambito": "Federal - DF",
+    "mandato": 4,
+    "reeleicao": "Recondução permitida, vinculada a renovação de 1/5",
+    "candidatura": "2 anos",
+    "voto": "180 dias",
+    "publico": "Não exigida",
+    "comissao": "3 membros titulares e 3 suplentes eleitos em AG",
+    "quorum": "Turno único com qualquer quórum dos presentes",
+    "meio": "Urnas eletrônicas cedidas pela J.E. ou de lona"
+  },
+  {
+    "sindicato": "SINDIJUS",
+    "ambito": "Estadual - PR",
+    "mandato": 3,
+    "reeleicao": "Permitida reeleição",
+    "candidatura": "1 ano (365 dias)",
+    "voto": "30 dias",
+    "publico": "Não exigida",
+    "comissao": "Indicada pela Diretoria Geral, referendada em AG",
+    "quorum": "Maioria simples dos presentes",
+    "meio": "Votação eletrônica ou física por comarcas"
+  },
+  {
+    "sindicato": "SINDJUSTIÇA",
+    "ambito": "Estadual - GO",
+    "mandato": 3,
+    "reeleicao": "Permitida reeleição",
+    "candidatura": "6 meses",
+    "voto": "Quites",
+    "publico": "Não exigida",
+    "comissao": "Eleita em Assembleia Geral extraordinária",
+    "quorum": "Metade mais um dos filiados quites",
+    "meio": "Híbrido (presencial e virtual via Zoom)"
+  },
+  {
+    "sindicato": "SINDIJUS",
+    "ambito": "Estadual - MS",
+    "mandato": 3,
+    "reeleicao": "Permitida uma única reeleição imediata no mesmo cargo",
+    "candidatura": "6 meses",
+    "voto": "Quites",
+    "publico": "Não exigida",
+    "comissao": "3 membros e 3 suplentes eleitos no Conselho Geral",
+    "quorum": "Maioria simples / Sem quórum mínimo",
+    "meio": "Cédulas físicas in loco ou urna eletrônica"
+  },
+  {
+    "sindicato": "SINDJUSTIÇA",
+    "ambito": "Estadual - CE",
+    "mandato": 3,
+    "reeleicao": "Permitida uma única reeleição",
+    "candidatura": "6 meses",
+    "voto": "Quites",
+    "publico": "Não exigida",
+    "comissao": "3 membros eleitos em Assembleia Geral Ordinária",
+    "quorum": "Regimento interno aprovado em assembleia",
+    "meio": "Físico / Coleta de urnas nas comarcas e SEJUDs"
+  },
+  {
+    "sindicato": "SINJUFEGO",
+    "ambito": "Federal - GO",
+    "mandato": 3,
+    "reeleicao": "Permitida uma única reeleição consecutiva para titular",
+    "candidatura": "6 meses",
+    "voto": "3 meses",
+    "publico": "Não exigida",
+    "comissao": "3 membros filiados eleitos em Assembleia Geral",
+    "quorum": "Turno único com qualquer quórum em 2ª convocação",
+    "meio": "Urnas convencionais, eletrônicas ou plataforma digital"
+  },
+  {
+    "sindicato": "SINDJUD",
+    "ambito": "Estadual - PE",
+    "mandato": 3,
+    "reeleicao": "Permitida uma reeleição para o mesmo cargo",
+    "candidatura": "6 meses",
+    "voto": "Quites",
+    "publico": "Não exigida",
+    "comissao": "3 associados e até 2 suplentes, eleitos em AG",
+    "quorum": "Maioria simples dos presentes na Assembleia",
+    "meio": "Voto direto e secreto na sede ou comarcas"
+  },
+  {
+    "sindicato": "SINDJUS",
+    "ambito": "Estadual - MA",
+    "mandato": 5,
+    "reeleicao": "Expressamente vedada a reeleição para o mesmo cargo",
+    "candidatura": "6 meses",
+    "voto": "6 meses",
+    "publico": "Não exigida",
+    "comissao": "3 membros efetivos e 2 suplentes, nomeados e referendados",
+    "quorum": "Definido pela Comissão Eleitoral / Regimento",
+    "meio": "Voto secreto, de preferência em urna convencional"
+  },
+  {
+    "sindicato": "SINDICATO UNIÃO",
+    "ambito": "Estadual - SP",
+    "mandato": 5,
+    "reeleicao": "Permitida reeleição (ilimitada)",
+    "candidatura": "3 anos + Certidão de 'Nada Consta' (PAD/Sindicância de 10 anos) e Negativas de Protesto (10 anos para Dir. Executiva) - RIA Art. 1º, §2º",
+    "voto": "Sem carência / No gozo dos direitos - RIPE Art. 3º",
+    "publico": "5 anos na categoria do TJSP",
+    "comissao": "3 membros nomeados pela diretoria executiva",
+    "quorum": "Metade mais um dos filiados quites na AG",
+    "meio": "Sufrágio direto (urnas na sede e correspondência) / Cédula única - RIPE"
+  },
+  {
+    "sindicato": "SINTAJ",
+    "ambito": "Estadual - BA",
+    "mandato": 3,
+    "reeleicao": "Vedada reeleição por mais de 2 mandatos consecutivos",
+    "candidatura": "6 meses",
+    "voto": "30 dias",
+    "publico": "Não exigida",
+    "comissao": "3 membros eleitos em AGE com 60 dias de antecedência",
+    "quorum": "Regulado no edital de convocação",
+    "meio": "Voto direto e secreto na sede e comarcas"
+  },
+  {
+    "sindicato": "SERJUSMIG",
+    "ambito": "Estadual - MG",
+    "mandato": 3,
+    "reeleicao": "Permitida reeleição",
+    "candidatura": "2 anos continuados",
+    "voto": "Quites",
+    "publico": "Não exigida",
+    "comissao": "Formada de acordo com o Regimento Eleitoral",
+    "quorum": "Maioria simples / Turno único",
+    "meio": "Físico ou eletrônico por correspondência"
+  },
+  {
+    "sindicato": "SINJUS",
+    "ambito": "Estadual - MG",
+    "mandato": 3,
+    "reeleicao": "Permitida reeleição",
+    "candidatura": "6 meses",
+    "voto": "2 meses",
+    "publico": "Não exigida",
+    "comissao": "Junta Eleitoral de 3 sindicalizados eleitos em AG",
+    "quorum": "Determinado em edital",
+    "meio": "Presencial ou virtual no Espaço Lea Leda"
+  },
+  {
+    "sindicato": "SINJUR",
+    "ambito": "Estadual - RO",
+    "mandato": 3,
+    "reeleicao": "Permitida reeleição",
+    "candidatura": "Filiação ativa",
+    "voto": "Quites",
+    "publico": "Não exigida",
+    "comissao": "Comissão Eleitoral",
+    "quorum": "Maioria simples",
+    "meio": "Virtual / eletrônico via plataforma do SINJUR"
+  },
+  {
+    "sindicato": "SINJEP",
+    "ambito": "Estadual - PB",
+    "mandato": 3,
+    "reeleicao": "Permitida reeleição",
+    "candidatura": "Filiação ativa",
+    "voto": "Quites",
+    "publico": "Não exigida",
+    "comissao": "Comissão Eleitoral eleita em AGE",
+    "quorum": "Maioria simples dos presentes",
+    "meio": "Virtual pela plataforma Google Meet / Zoom"
+  },
+  {
+    "sindicato": "SINDJUSTIÇA",
+    "ambito": "Estadual - RJ",
+    "mandato": 3,
+    "reeleicao": "Permitida reeleição (limite de uma consecutiva)",
+    "candidatura": "6 meses",
+    "voto": "Quites / sem carência",
+    "publico": "Não exigida",
+    "comissao": "Eleita na Assembleia Geral da base, representantes de chapas",
+    "quorum": "Regido por edital / maioria simples dos presentes",
+    "meio": "Eletrônico via internet, físico ou híbrido"
+  },
+  {
+    "sindicato": "SINJUSC",
+    "ambito": "Estadual - SC",
+    "mandato": 3,
+    "reeleicao": "Permitida reeleição (limite de duas consecutivas para mesmo cargo)",
+    "candidatura": "6 meses + desincompatibilização de cargo de confiança 30 dias antes",
+    "voto": "3 meses",
+    "publico": "Não exigida",
+    "comissao": "5 membros eleitos/homologados em Congresso ou Assembleia Geral",
+    "quorum": "Maioria simples dos presentes",
+    "meio": "Híbrido, físico ou eletrônico via plataforma segura"
+  }
+];
+
+        // BD Local Simulada de Assinaturas
+        let fakeSigners = [
+            { name: "Sérgio A. Santos", location: "Campinas", date: "Há 2 mins" },
+            { name: "Mariana G. Silva", location: "Lins", date: "Há 12 mins" },
+            { name: "Rodrigo M. Oliveira", location: "Ribeirão Preto", date: "Há 45 mins" },
+            { name: "Rita de Cássia Faria", location: "Capital (Fórum João Mendes)", date: "Há 1 hora" }
+        ];
+
+        // Carregar do LocalStorage se existir
+        function initApp() {
+            let storedSigners = localStorage.getItem('sindicato_all_signers');
+            if (storedSigners) {
+                fakeSigners = JSON.parse(storedSigners);
+            } else {
+                localStorage.setItem('sindicato_all_signers', JSON.stringify(fakeSigners));
+            }
+            updateCountersAndLists();
+            renderTable(sindicatosData);
+        }
+
+        // Sistema de Abas Alternáveis (SPA)
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+
+            document.querySelectorAll('nav border-b-4').forEach(btn => {
+                btn.classList.remove('active-tab');
+            });
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('active-tab');
+                btn.classList.add('border-transparent');
+            });
+            document.getElementById(`tab-${tabName}`).classList.add('active-tab');
+            document.getElementById(`tab-${tabName}`).classList.remove('border-transparent');
+        }
+
+        // Accordion para Drops
+        function toggleAccordion(dropId) {
+            let body = document.getElementById(`body-${dropId}`);
+            let icon = document.getElementById(`icon-${dropId}`);
+            
+            if (body.classList.contains('hidden')) {
+                body.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                body.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Renderização Dinâmica da Tabela
+        function renderTable(data) {
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+
+            data.forEach(item => {
+                // Se for o Sindicato União, destacar com estilo e borda amarela
+                const isUniao = item.sindicato.toUpperCase() === 'SINDICATO UNIÃO';
+                const rowClass = isUniao 
+                    ? 'bg-amber-50/50 hover:bg-amber-100/50 border-l-4 border-amber-500 font-semibold' 
+                    : 'hover:bg-slate-50 transition';
+
+                const reeleicaoClass = isUniao ? 'text-amber-800 font-bold' : 'text-slate-600';
+                const elegibilidadeClass = isUniao ? 'text-amber-900 bg-amber-50/30' : 'text-slate-600';
+
+                tableBody.innerHTML += `
+                    <tr class="${rowClass}">
+                        <td class="p-3 font-bold text-slate-900">${item.sindicato}</td>
+                        <td class="p-3 text-center text-slate-500">${item.ambito}</td>
+                        <td class="p-3 text-center font-bold text-slate-800">${item.mandato} anos</td>
+                        <td class="p-3 ${reeleicaoClass}">${item.reeleicao}</td>
+                        <td class="p-3 text-xs ${elegibilidadeClass}">
+                            <strong>Carência Candidatura:</strong> ${item.candidatura}<br/>
+                            <span class="text-[10px] text-slate-400">Carência Voto: ${item.voto} | Serviço Público: ${item.publico}</span>
+                        </td>
+                        <td class="p-3 text-slate-600 text-xs">${item.comissao}</td>
+                        <td class="p-3 text-slate-600 text-xs">
+                            <strong>Meio:</strong> ${item.meio}<br/>
+                            <span class="text-[10px] text-slate-400">Quórum: ${item.quorum}</span>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('table-row-count').innerText = `Exibindo ${data.length} de 23 sindicatos`;
+        }
+
+        // Filtro Multidimensional Avançado
+        function filterData() {
+            const searchVal = document.getElementById('search-input').value.toLowerCase();
+            const scopeVal = document.getElementById('filter-scope').value;
+            const mandateVal = document.getElementById('filter-mandate').value;
+
+            const filtered = sindicatosData.filter(item => {
+                // Match de Busca Livre
+                const matchSearch = 
+                    item.sindicato.toLowerCase().includes(searchVal) ||
+                    item.ambito.toLowerCase().includes(searchVal) ||
+                    item.reeleicao.toLowerCase().includes(searchVal) ||
+                    item.candidatura.toLowerCase().includes(searchVal) ||
+                    item.voto.toLowerCase().includes(searchVal) ||
+                    item.publico.toLowerCase().includes(searchVal) ||
+                    item.comissao.toLowerCase().includes(searchVal) ||
+                    item.quorum.toLowerCase().includes(searchVal) ||
+                    item.meio.toLowerCase().includes(searchVal);
+
+                // Match de Âmbito (Federal / Estadual)
+                const matchScope = (scopeVal === 'Todos') || 
+                    (scopeVal === 'Federal' && item.ambito.toLowerCase().includes('federal')) ||
+                    (scopeVal === 'Estadual' && item.ambito.toLowerCase().includes('estadual'));
+
+                // Match de Mandato
+                const matchMandate = (mandateVal === 'Todos') || 
+                    (item.mandato.toString() === mandateVal);
+
+                return matchSearch && matchScope && matchMandate;
+            });
+
+            renderTable(filtered);
+        }
+
+        // Atualizar Contadores, Progress Bar e Lista de Apoiadores
+        function updateCountersAndLists() {
+            let count = fakeSigners.length;
+            document.getElementById('badge-count').innerText = count;
+            document.getElementById('current-signs').innerText = count;
+
+            let percent = ((count / 500) * 100).toFixed(1);
+            document.getElementById('progress-percent').innerText = `${percent}%`;
+            document.getElementById('progress-bar-fill').style.width = `${percent}%`;
+
+            let listContainer = document.getElementById('signers-list');
+            listContainer.innerHTML = '';
+            
+            fakeSigners.slice().reverse().forEach(signer => {
+                listContainer.innerHTML += `
+                    <div class="px-4 py-3 flex justify-between items-center text-xs border-b border-slate-100">
+                        <div class="flex items-center space-x-2.5">
+                            <span class="w-7 h-7 rounded-full bg-emerald-50 text-emerald-700 flex justify-center items-center border border-emerald-100 font-bold uppercase">${signer.name.substring(0, 2)}</span>
+                            <div>
+                                <p class="font-bold text-slate-800">${signer.name}</p>
+                                <p class="text-[10px] text-slate-400">Comarca: ${signer.location}</p>
+                            </div>
+                        </div>
+                        <span class="text-slate-400 italic">${signer.date}</span>
+                    </div>
+                `;
+            });
+        }
+
+        // Submeter Assinatura
+        function submitSign(event) {
+            event.preventDefault();
+            let name = document.getElementById('user-name').value;
+            let location = document.getElementById('user-location').value;
+
+            fakeSigners.push({ name: name, location: location, date: "Agora mesmo" });
+            localStorage.setItem('sindicato_all_signers', JSON.stringify(fakeSigners));
+
+            updateCountersAndLists();
+            document.getElementById('petition-form').reset();
+            document.getElementById('success-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+        }
+
+        window.onload = initApp;
+    </script>
 </body>
 </html>
+"""
+
+with open("campanha_unidade_e_luta.html", "w", encoding="utf-8") as f:
+    f.write(html_code)
+print("File generated: [file-tag: campanha_unidade_e_luta.html]")
