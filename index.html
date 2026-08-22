@@ -214,7 +214,7 @@
         <section id="content-drops" class="tab-content hidden space-y-6">
             <div class="text-center max-w-xl mx-auto mb-8">
                 <h2 class="text-2xl font-bold text-slate-900">Drops da Verdade: Desmistificando o Estatuto</h2>
-                <p class="text-sm text-slate-600">Entenda de forma rápida e dinâmica o que as regras atuais ocultam e qual é a nossa proposta de mudança para libertar o sindicato.</p>
+                <p class="text-base text-slate-900">Entenda de forma rápida e dinâmica o que as regras atuais ocultam e qual é a nossa proposta de mudança para libertar o sindicato.</p>
             </div>
 
             <div class="max-w-4xl mx-auto space-y-4">
@@ -351,7 +351,7 @@
         <section id="content-comparison" class="tab-content hidden space-y-6">
             <div class="text-center max-w-xl mx-auto mb-6">
                 <h2 class="text-2xl font-bold text-slate-900">Painel Comparativo Completo (25 Sindicatos)</h2>
-                <p class="text-sm text-slate-600">Filtre e analise todas as bases. Veja como o Sindicato União (SP) está isolado no cenário nacional com regras excludentes.</p>
+                <p class="text-base text-slate-900">Filtre e analise todas as bases. Veja como o Sindicato União (SP) está isolado no cenário nacional com regras excludentes.</p>
             </div>
 
             <!-- INTERFACE DE FILTROS AVANÇADOS -->
@@ -418,7 +418,7 @@
         <section id="content-petition" class="tab-content hidden max-w-xl mx-auto space-y-8">
             <div class="text-center space-y-2">
                 <h2 class="text-2xl font-bold text-slate-900">Abaixo-Assinado pela Unificação e Redemocratização</h2>
-                <p class="text-sm text-slate-600">Preencha o formulário para somar a sua voz pela consolidação do Estatuto Único do Sindicato União. Aberto a todos os servidores do Judiciário paulista.</p>
+                <p class="text-base text-slate-900">Preencha o formulário para somar a sua voz pela consolidação do Estatuto Único do Sindicato União. Aberto a todos os servidores do Judiciário paulista.</p>
             </div>
 
             <!-- FORMULÁRIO -->
@@ -448,7 +448,7 @@
                 <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-2">
                     <div class="flex items-start space-x-2.5">
                         <input type="checkbox" id="user-agree" required class="mt-1 accent-emerald-600">
-                        <label for="user-agree" class="text-xs text-slate-500 leading-normal">
+                        <label for="user-agree" class="text-base text-slate-900 leading-normal">
                             Declaro apoiar a unificação das normas do Sindicato União em um único Estatuto, extinguindo o RIA e o RIPE, reduzindo prazos de carência e liberando as candidaturas de filtros abusivos.
                         </label>
                     </div>
@@ -466,6 +466,30 @@
                     <!-- Gerado dinamicamente no JS -->
                 </div>
             </div>
+<!-- ENQUETE (TERMÔMETRO DA BASE) -->
+            <div id="rating-area" class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4 text-center mt-6">
+                <div class="inline-block bg-amber-100 text-amber-800 text-[14px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-1">
+                    Termômetro da Categoria
+                </div>
+                <h3 class="font-bold text-slate-900 text-lg">Deixe sua avaliação</h3>
+                <p class="text-sm text-slate-900">Numa escala de 1 a 5, que nota você dá para a atuação e a transparência da atual gestão do Sindicato União?</p>
+                
+                <!-- Botões de Nota -->
+                <div class="pt-2">
+                    <div class="flex justify-center space-x-2 sm:space-x-4">
+                        <button type="button" onclick="submitRating(1)" class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg font-bold text-slate-500 bg-slate-100 hover:bg-red-500 hover:text-white hover:shadow-md transition duration-200">1</button>
+                        <button type="button" onclick="submitRating(2)" class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg font-bold text-slate-500 bg-slate-100 hover:bg-orange-500 hover:text-white hover:shadow-md transition duration-200">2</button>
+                        <button type="button" onclick="submitRating(3)" class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg font-bold text-slate-500 bg-slate-100 hover:bg-amber-500 hover:text-white hover:shadow-md transition duration-200">3</button>
+                        <button type="button" onclick="submitRating(4)" class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg font-bold text-slate-500 bg-slate-100 hover:bg-lime-500 hover:text-white hover:shadow-md transition duration-200">4</button>
+                        <button type="button" onclick="submitRating(5)" class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg font-bold text-slate-500 bg-slate-100 hover:bg-emerald-500 hover:text-white hover:shadow-md transition duration-200">5</button>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-slate-400 mt-2 px-4 uppercase tracking-wider font-semibold">
+                        <span>Péssimo</span>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
 
@@ -978,6 +1002,25 @@
         }
 
         window.onload = initApp;
+// Submeter Enquete (Termômetro)
+        function submitRating(nota) {
+            // Média simulada para gerar engajamento
+            const mediaSimulada = 1.8;
+            
+            const area = document.getElementById('rating-area');
+            area.innerHTML = `
+                <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl space-y-2 animate-[fadeIn_0.5s_ease-in-out]">
+                    <div class="text-emerald-600 text-3xl mb-2"><i class="fa-solid fa-check-circle"></i></div>
+                    <h3 class="font-bold text-emerald-800 text-lg">Voto registrado com sucesso!</h3>
+                    <p class="text-sm text-emerald-700">Você avaliou o Sindicato com nota <strong>${nota}</strong>.</p>
+                    <div class="pt-3 mt-3 border-t border-emerald-200/60">
+                        <p class="text-xs text-emerald-600 font-medium">
+                            A média de avaliação atual da categoria paulista é <strong class="text-base text-red-600">${mediaSimulada}</strong>.
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
     </script>
 </body>
 </html>
