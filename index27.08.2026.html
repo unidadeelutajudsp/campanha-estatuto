@@ -70,7 +70,7 @@
             <!-- Menu de Apoio Rápido -->
             <div class="flex items-center space-x-4">
                 <span class="text-sm bg-slate-800 text-emerald-300 font-semibold px-3 py-1.5 rounded-full border border-emerald-500/20" id="header-counter-badge">
-                    <i class="fa-solid fa-pen-nib mr-1.5"></i> <span id="badge-count">142</span> assinaturas
+                    <i class="fa-solid fa-pen-nib mr-1.5"></i> <span id="badge-count">0</span> assinaturas
                 </span>
                 <button onclick="switchTab('petition')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-4 py-2 rounded-lg transition duration-200 shadow-sm flex items-center">
                     Assinar Agora <i class="fa-solid fa-chevron-right ml-2 text-xs"></i>
@@ -127,13 +127,13 @@
                     <div class="relative pt-1">
                         <div class="flex mb-2 items-center justify-between">
                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-emerald-400 bg-emerald-200/10">Progresso</span>
-                            <span class="text-xs font-bold inline-block text-emerald-400" id="progress-percent">28.4%</span>
+                            <span class="text-xs font-bold inline-block text-emerald-400" id="progress-percent">0.0%</span>
                         </div>
                         <div class="overflow-hidden h-2.5 text-xs flex rounded bg-slate-700">
-                            <div style="width: 28.4%" id="progress-bar-fill" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500 transition-all duration-500"></div>
+                            <div style="width: 0%" id="progress-bar-fill" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500 transition-all duration-500"></div>
                         </div>
                         <div class="flex justify-between text-[10px] text-slate-400 mt-1">
-                            <span><span id="current-signs">142</span> assinaturas</span>
+                            <span><span id="current-signs">0</span> assinaturas</span>
                             <span>Meta: 500</span>
                         </div>
                     </div>
@@ -386,8 +386,8 @@
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Âmbito</label>
                     <select id="filter-scope" onchange="filterData()" class="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs bg-white text-slate-700">
                         <option value="Todos">Todos os Sindicatos</option>
-                        <option value="Federal">Apenas Federais (9 estatutos)</option>
-                        <option value="Estadual">Apenas Estaduais (16 estatutos)</option>
+                        <option value="Federal">Apenas Federais (7 estatutos)</option>
+                        <option value="Estadual">Apenas Estaduais (18 estatutos)</option>
                     </select>
                 </div>
                 <!-- Filtro por Duração de Mandato -->
@@ -518,7 +518,6 @@
                     <i class="fa-solid fa-pen-nib mr-2"></i> Assinar Petição Eletrônica
                 </button>
             </form>
-                                    
         </section>
     </main>
 
@@ -595,7 +594,7 @@
                 
                 <!-- ESTA É A LINHA NOVA QUE MUDA O ASSUNTO -->
                 <input type="hidden" name="_subject" value="Nova mensagem de Unidade e Luta">
-                
+
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1" for="contact-name">Seu Nome</label>
                     <input type="text" id="contact-name" name="Nome" required placeholder="Como devemos te chamar?" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
@@ -681,7 +680,7 @@
   },
   {
     "sindicato": "SINDQUINZE",
-    "ambito": "Federal - SP",
+    "ambito": "Federal - TRT-15",
     "mandato": 3,
     "reeleicao": "Permitida reeleição",
     "candidatura": "6 meses",
@@ -947,35 +946,19 @@
 
         // Função para ordenar a tabela por Estado (UF), depois Esfera, depois Nome
         sindicatosData.sort((a, b) => {
-            // Extrai a UF (últimos 2 caracteres do âmbito, ex: "SP", "PE")
             let ufA = a.ambito.slice(-2);
             let ufB = b.ambito.slice(-2);
-
-            // 1º Critério: Ordem Alfabética por Estado (UF)
             if (ufA !== ufB) return ufA.localeCompare(ufB);
 
-            // Extrai a Esfera (ex: "Estadual", "Federal")
             let esferaA = a.ambito.split(" - ")[0];
             let esferaB = b.ambito.split(" - ")[0];
-
-            // 2º Critério: Ordem Alfabética por Esfera (Estadual vem antes de Federal)
             if (esferaA !== esferaB) return esferaA.localeCompare(esferaB);
 
-            // 3º Critério: Desempate pelo nome do Sindicato
             return a.sindicato.localeCompare(b.sindicato);
         });
 
-        // BD Local Simulada de Assinaturas
-        let fakeSigners = [
-            { name: "Sérgio A. Santos", location: "Campinas", date: "Há 2 mins" },
-            { name: "Mariana G. Silva", location: "Lins", date: "Há 12 mins" },
-            { name: "Rodrigo M. Oliveira", location: "Ribeirão Preto", date: "Há 45 mins" },
-            { name: "Rita de Cássia Faria", location: "Capital (Fórum João Mendes)", date: "Há 1 hora" }
-        ];
-
         // Inicialização limpa da página
         function initApp() {
-            // Define o contador inicial (ex: 0 para o lançamento oficial)
             let totalAssinaturas = 0; 
             
             document.getElementById('badge-count').innerText = totalAssinaturas;
@@ -987,14 +970,6 @@
 
             renderTable(sindicatosData);
 
-            // Recupera a aba que estava aberta antes de atualizar a página
-            let abaAtiva = localStorage.getItem('sindicato_aba_ativa');
-            if (abaAtiva) {
-                switchTab(abaAtiva);
-            }
-        }
-
-            // Recupera a aba que estava aberta antes de atualizar a página
             let abaAtiva = localStorage.getItem('sindicato_aba_ativa');
             if (abaAtiva) {
                 switchTab(abaAtiva);
@@ -1008,17 +983,17 @@
             });
             document.getElementById(`content-${tabName}`).classList.remove('hidden');
 
-            document.querySelectorAll('nav border-b-4').forEach(btn => {
-                btn.classList.remove('active-tab');
-            });
             document.querySelectorAll('nav button').forEach(btn => {
                 btn.classList.remove('active-tab');
                 btn.classList.add('border-transparent');
             });
-            document.getElementById(`tab-${tabName}`).classList.add('active-tab');
-            document.getElementById(`tab-${tabName}`).classList.remove('border-transparent');
+            
+            let activeBtn = document.getElementById(`tab-${tabName}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active-tab');
+                activeBtn.classList.remove('border-transparent');
+            }
 
-            // Salva a aba atual na memória do navegador
             localStorage.setItem('sindicato_aba_ativa', tabName);
         }
 
@@ -1103,42 +1078,10 @@
             renderTable(filtered);
         }
 
-        // Atualizar Contadores, Progress Bar e Lista de Apoiadores
-        function updateCountersAndLists() {
-            let count = fakeSigners.length;
-            document.getElementById('badge-count').innerText = count;
-            document.getElementById('current-signs').innerText = count;
-
-            let percent = ((count / 500) * 100).toFixed(1);
-            document.getElementById('progress-percent').innerText = `${percent}%`;
-            document.getElementById('progress-bar-fill').style.width = `${percent}%`;
-
-            let listContainer = document.getElementById('signers-list');
-            if (listContainer) {
-                listContainer.innerHTML = '';
-                
-                fakeSigners.slice().reverse().forEach(signer => {
-                    listContainer.innerHTML += `
-                        <div class="px-4 py-3 flex justify-between items-center text-xs border-b border-slate-100">
-                            <div class="flex items-center space-x-2.5">
-                                <span class="w-7 h-7 rounded-full bg-emerald-50 text-emerald-700 flex justify-center items-center border border-emerald-100 font-bold uppercase">${signer.name.substring(0, 2)}</span>
-                                <div>
-                                    <p class="font-bold text-slate-800">${signer.name}</p>
-                                    <p class="text-[10px] text-slate-400">Comarca: ${signer.location}</p>
-                                </div>
-                            </div>
-                            <span class="text-slate-400 italic">${signer.date}</span>
-                        </div>
-                    `;
-                });
-            }
-        }
-
         // Submeter Assinatura
         async function submitSign(event) {
             event.preventDefault();
             
-            // 1. Coleta os dados que o servidor digitou
             const formData = new URLSearchParams();
             formData.append('nome', document.getElementById('user-name').value);
             formData.append('matricula', document.getElementById('user-id').value);
@@ -1147,10 +1090,8 @@
             formData.append('situacao', document.querySelector('input[name="situacao_funcional"]:checked').value);
             formData.append('sindicalizado', document.querySelector('input[name="sindicalizado"]:checked').value);
 
-            // 2. URL do Google Apps Script integrada
             const scriptURL = "https://script.google.com/macros/s/AKfycbx0QHyyYamYFvZtRtc2fRrjdJ34mwQkK1aY7S6DZQKwOqizFEVPL4K28OoKoLWvZO2eBA/exec";
 
-            // 3. Envia silenciosamente para o Google Sheets e exibe o modal de sucesso
             try {
                 await fetch(scriptURL, { method: 'POST', body: formData });
                 document.getElementById('petition-form').reset();
@@ -1158,26 +1099,6 @@
             } catch (error) {
                 alert("Ocorreu um erro de conexão. Tente novamente.");
             }
-        }
-
-        // Submeter Enquete (Termômetro)
-        function submitRating(nota) {
-            // Média simulada para gerar engajamento
-            const mediaSimulada = 1.8;
-            
-            const area = document.getElementById('rating-area');
-            area.innerHTML = `
-                <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl space-y-2 animate-[fadeIn_0.5s_ease-in-out]">
-                    <div class="text-emerald-600 text-3xl mb-2"><i class="fa-solid fa-check-circle"></i></div>
-                    <h3 class="font-bold text-emerald-800 text-lg">Voto registrado com sucesso!</h3>
-                    <p class="text-sm text-emerald-700">Você avaliou o Sindicato com nota <strong>${nota}</strong>.</p>
-                    <div class="pt-3 mt-3 border-t border-emerald-200/60">
-                        <p class="text-xs text-emerald-600 font-medium">
-                            A média de avaliação atual da categoria paulista é <strong class="text-base text-red-600">${mediaSimulada}</strong>.
-                        </p>
-                    </div>
-                </div>
-            `;
         }
 
         function closeModal() {
@@ -1194,23 +1115,13 @@
         }
 
         async function submitContact(event) {
-            event.preventDefault(); // Impede a página de recarregar
+            event.preventDefault();
             
             const form = event.target;
             const data = new FormData(form);
             
-            // COLE AQUI O SEU LINK GERADO NO FORMSPREE:
             const formspreeURL = "https://formspree.io/f/xwlkrzow";
-            
-            // Simulação para testes locais enquanto não tiver o link do Formspree
-            if (formspreeURL === "COLOQUE_SEU_LINK_DO_FORMSPREE_AQUI") {
-                form.reset();
-                closeContactModal();
-                document.getElementById('contact-success-modal').classList.remove('hidden');
-                return;
-            }
 
-            // Envio real via FETCH API
             try {
                 const response = await fetch(formspreeURL, {
                     method: 'POST',
@@ -1246,25 +1157,19 @@
             const body = document.body;
 
             if (container.classList.contains('table-fullscreen-mode')) {
-                // Sair da tela cheia
                 container.classList.remove('table-fullscreen-mode');
-                body.style.overflow = ''; // Restaura a rolagem da página
-                
+                body.style.overflow = '';
                 controls.classList.remove('flex');
-                controls.classList.add('hidden'); // Esconde a barra de fechar
-                
-                expandBtn.classList.remove('hidden'); // Mostra o botão original
-                scrollArea.classList.add('max-h-[600px]'); // Volta o limite de altura original
+                controls.classList.add('hidden');
+                expandBtn.classList.remove('hidden');
+                scrollArea.classList.add('max-h-[600px]');
             } else {
-                // Entrar em tela cheia
                 container.classList.add('table-fullscreen-mode');
-                body.style.overflow = 'hidden'; // Impede que o fundo do site role
-                
+                body.style.overflow = 'hidden';
                 controls.classList.remove('hidden');
-                controls.classList.add('flex'); // Mostra a barra de fechar no topo
-                
-                expandBtn.classList.add('hidden'); // Esconde o botão original
-                scrollArea.classList.remove('max-h-[600px]'); // Permite que a tabela ocupe 100% da tela do celular
+                controls.classList.add('flex');
+                expandBtn.classList.add('hidden');
+                scrollArea.classList.remove('max-h-[600px]');
             }
         }
 
