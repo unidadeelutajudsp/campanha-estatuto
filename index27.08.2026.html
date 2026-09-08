@@ -1149,17 +1149,29 @@
         }
 
         // Submeter Assinatura
-        function submitSign(event) {
+        async function submitSign(event) {
             event.preventDefault();
-            let name = document.getElementById('user-name').value;
-            let location = document.getElementById('user-location').value;
+            
+            // 1. Coleta os dados que o servidor digitou
+            const formData = new URLSearchParams();
+            formData.append('nome', document.getElementById('user-name').value);
+            formData.append('matricula', document.getElementById('user-id').value);
+            formData.append('comarca', document.getElementById('user-location').value);
+            formData.append('email', document.getElementById('user-email').value);
+            formData.append('situacao', document.querySelector('input[name="situacao_funcional"]:checked').value);
+            formData.append('sindicalizado', document.querySelector('input[name="sindicalizado"]:checked').value);
 
-            fakeSigners.push({ name: name, location: location, date: "Agora mesmo" });
-            localStorage.setItem('sindicato_all_signers', JSON.stringify(fakeSigners));
+            // 2. URL do Google Apps Script integrada
+            const scriptURL = "https://script.google.com/macros/s/AKfycbx0QHyyYamYFvZtRtc2fRrjdJ34mwQkK1aY7S6DZQKwOqizFEVPL4K28OoKoLWvZO2eBA/exec";
 
-            updateCountersAndLists();
-            document.getElementById('petition-form').reset();
-            document.getElementById('success-modal').classList.remove('hidden');
+            // 3. Envia silenciosamente para o Google Sheets e exibe o modal de sucesso
+            try {
+                await fetch(scriptURL, { method: 'POST', body: formData });
+                document.getElementById('petition-form').reset();
+                document.getElementById('success-modal').classList.remove('hidden');
+            } catch (error) {
+                alert("Ocorreu um erro de conexão. Tente novamente.");
+            }
         }
 
         // Submeter Enquete (Termômetro)
