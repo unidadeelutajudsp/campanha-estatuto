@@ -973,16 +973,26 @@
             { name: "Rita de Cássia Faria", location: "Capital (Fórum João Mendes)", date: "Há 1 hora" }
         ];
 
-        // Carregar do LocalStorage se existir
+        // Inicialização limpa da página
         function initApp() {
-            let storedSigners = localStorage.getItem('sindicato_all_signers');
-            if (storedSigners) {
-                fakeSigners = JSON.parse(storedSigners);
-            } else {
-                localStorage.setItem('sindicato_all_signers', JSON.stringify(fakeSigners));
-            }
-            updateCountersAndLists();
+            // Define o contador inicial (ex: 0 para o lançamento oficial)
+            let totalAssinaturas = 0; 
+            
+            document.getElementById('badge-count').innerText = totalAssinaturas;
+            document.getElementById('current-signs').innerText = totalAssinaturas;
+            
+            let percent = ((totalAssinaturas / 500) * 100).toFixed(1);
+            document.getElementById('progress-percent').innerText = `${percent}%`;
+            document.getElementById('progress-bar-fill').style.width = `${percent}%`;
+
             renderTable(sindicatosData);
+
+            // Recupera a aba que estava aberta antes de atualizar a página
+            let abaAtiva = localStorage.getItem('sindicato_aba_ativa');
+            if (abaAtiva) {
+                switchTab(abaAtiva);
+            }
+        }
 
             // Recupera a aba que estava aberta antes de atualizar a página
             let abaAtiva = localStorage.getItem('sindicato_aba_ativa');
