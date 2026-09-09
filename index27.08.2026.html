@@ -415,27 +415,29 @@
             <!-- CONTÊINER PRINCIPAL DA TABELA -->
             <div id="table-container" class="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col overflow-hidden max-w-5xl mx-auto">
                 
-                <!-- Barra superior EXCLUSIVA do modo Tela Cheia (Escondida por padrão) -->
-                <div id="fullscreen-controls" class="hidden flex-shrink-0 justify-between items-center p-3 bg-slate-900 text-white w-full shadow-md z-20">
+                <!-- Barra superior EXCLUSIVA do modo Tela Cheia -->
+                <!-- AJUSTE: Reduzido o padding vertical (py-1.5) e adicionada borda inferior (border-b) -->
+                <div id="fullscreen-controls" class="hidden flex-shrink-0 justify-between items-center px-3 py-1.5 bg-slate-900 text-white w-full border-b border-slate-800 z-20">
                     <span class="font-bold text-sm text-emerald-400"><i class="fa-solid fa-table-list mr-2"></i> Comparativo</span>
-                    <button onclick="toggleTableFullscreen()" class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold py-1.5 px-4 rounded-lg flex items-center transition">
-                        <i class="fa-solid fa-xmark mr-2"></i> Fechar
+                    <button onclick="toggleTableFullscreen()" class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold py-1.5 px-3 rounded-lg flex items-center transition">
+                        <i class="fa-solid fa-xmark mr-1.5"></i> Fechar
                     </button>
                 </div>
 
                 <!-- Área de rolagem isolada -->
                 <div id="table-scroll-area" class="overflow-x-auto overflow-y-auto max-h-[600px] w-full">
                     <table class="w-full text-left border-collapse text-xs" id="comparison-table">
-                        <!-- CABEÇALHO CONGELADO (sticky top-0 bg-slate-900) -->
+                        <!-- CABEÇALHO CONGELADO -->
                         <thead class="sticky top-0 z-10 bg-slate-900 text-white text-center font-bold shadow-sm">
                             <tr>
-                                <th class="p-3 text-left bg-slate-900 min-w-[150px]">Sindicato</th>
-                                <th class="p-3 bg-slate-900">Esfera</th>
-                                <th class="p-3 bg-slate-900">Mandato</th>
-                                <th class="p-3 bg-slate-900">Reeleição</th>
-                                <th class="p-3 bg-slate-900 text-left min-w-[200px]">Carência / Elegibilidade</th>
-                                <th class="p-3 bg-slate-900 text-left min-w-[180px]">Comissão Eleitoral</th>
-                                <th class="p-3 bg-slate-900 text-left min-w-[150px]">Votação e Voto</th>
+                                <!-- AJUSTE: Trocado p-3 por px-3 py-2 para achatar o cabeçalho verticalmente -->
+                                <th class="px-3 py-2 text-left bg-slate-900 min-w-[150px]">Sindicato</th>
+                                <th class="px-3 py-2 bg-slate-900">Esfera</th>
+                                <th class="px-3 py-2 bg-slate-900">Mandato</th>
+                                <th class="px-3 py-2 bg-slate-900">Reeleição</th>
+                                <th class="px-3 py-2 bg-slate-900 text-left min-w-[200px]">Carência / Elegibilidade</th>
+                                <th class="px-3 py-2 bg-slate-900 text-left min-w-[180px]">Comissão Eleitoral</th>
+                                <th class="px-3 py-2 bg-slate-900 text-left min-w-[150px]">Votação e Voto</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 font-medium" id="table-body">
